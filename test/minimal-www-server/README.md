@@ -1,6 +1,6 @@
 #Minimal www server with Nginx in Docker container.
 
-ビルド
+building docker image
 
 ```
 $ sudo docker build -t minimal-www-server .
@@ -9,7 +9,7 @@ REPOSITORY            TAG                 IMAGE ID            CREATED           
 minimal-www-server    latest              e0874cd32175        6 seconds ago       192.5 MB
 ```
 
-起動
+running
 
 ```
 $ sudo docker run --name xxxxxxxxxxxx -d -p 80:80 minimal-www-server
