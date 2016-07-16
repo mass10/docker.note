@@ -1,4 +1,4 @@
-#minimal www server with Docker container.
+#Minimal www server with Nginx in Docker container.
 
 ビルド
 
