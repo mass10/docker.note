@@ -1,0 +1,10 @@
+version: "3"
+services:
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - "8000:8000"
+    command: -jar DynamoDBLocal.jar -port 8000 -dbPath /e7b6ace2-7bda-4cbd-9567-10a06b3f3d53
+    volumes:
+      - /tmp:/e7b6ace2-7bda-4cbd-9567-10a06b3f3d53:rw
+
