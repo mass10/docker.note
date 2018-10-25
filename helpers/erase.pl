@@ -29,7 +29,7 @@ sub _remove {
 		return;
 	}
 
-	system('docker', 'rm', $container_id);
+	system('sudo', 'docker', 'rm', $container_id);
 }
 
 sub _println {
@@ -41,7 +41,7 @@ sub _erase {
 
 	my $stream;
 
-	open($stream, 'docker ps --all --filter \'status=exited\' |');
+	open($stream, 'sudo docker ps --all --filter \'status=exited\' |');
 
 	while(my $line = <$stream>) {
 
