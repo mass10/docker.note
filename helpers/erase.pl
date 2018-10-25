@@ -3,79 +3,53 @@
 
 use strict;
 use utf8;
-use Data::Dumper;
-
-sub _is_header_line {
-
-	my ($line) = @_;
-	return 0 <= index($line, 'CONTAINER ID');
-}
-
-sub _fill_positions {
-
-	my ($positions, $line) = @_;
-	if(0 <= index($line, 'CONTAINER ID')) {
-		$positions->{'CONTAINER ID'} = index($line, 'CONTAINER ID');
-	}
-	if(0 <= index($line, 'IMAGE')) {
-		$positions->{'IMAGE'} = index($line, 'IMAGE');
-	}
-	if(0 <= index($line, 'STATUS')) {
-		$positions->{'STATUS'} = index($line, 'STATUS');
-	}
-}
-
-sub _filter_exited {
-
-	my $container = shift;
-	if($container->{'STATUS'} =~ m/Exited/ms) {
-		return $container;
-	}
-	return undef;
-}
 
 sub _readline {
 
-	my ($positions, $line) = @_;
-	if(_is_header_line($line)) {
-		_fill_positions($positions, $line);
+	my ($line) = @_;
+
+
+
+	if ($line =~ m/\ACONTAINER\ ID/ms) {
 		return undef;
 	}
-	my $container = {};
-	if(0 <= $positions->{'CONTAINER ID'}) {
-		my $container_id = substr($line, $positions->{'CONTAINER ID'});
-		$container_id =~ m/\A([a-zA-Z0-9\-\_]+)/ms;
-		$container_id = $1;
-		$container->{'CONTAINER ID'} = $container_id;
+	if ($line =~ m/\A([a-zA-Z0-9\-\_]+) /ms) {
+		return $1;
 	}
-	if(0 <= $positions->{'STATUS'}) {
-		my $status = substr($line, $positions->{'STATUS'});
-		$status =~ m/\A([a-zA-Z0-9\-\_]+)/ms;
-		$status = $1;
-		$container->{'STATUS'} = $status;
-	}
-	return $container;
+	return undef;
 }
 
 sub _remove {
 
 	my ($container_id) = @_;
+
+
+
 	if(!length($container_id)) {
 		return;
 	}
+
 	system('docker', 'rm', $container_id);
+}
+
+sub _println {
+
+	print(@_, "\n");
 }
 
 sub _erase {
 
-	my $stream = undef;
-	open($stream, 'docker ps -a |');
-	my $positions = {};
+	my $stream;
+
+	open($stream, 'docker ps --all --filter \'status=exited\' |');
+
 	while(my $line = <$stream>) {
-		my $container = _readline($positions, $line);
-		$container = _filter_exited($container);
-		_remove($container->{'CONTAINER ID'});
+
+		my $container_id = _readline($line);
+
+		_remove($container_id);
 	}
+
 	close($stream)
 }
 
