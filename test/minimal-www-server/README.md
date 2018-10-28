@@ -1,4 +1,4 @@
-#Minimal www server with Nginx in Docker container.
+# Minimal www server with Nginx in Docker container. (Ubuntu)
 
 building docker image
 
@@ -17,4 +17,3 @@ $ sudo docker ps
 CONTAINER ID        IMAGE                COMMAND                  CREATED             STATUS              PORTS                         NAMES
 c31b4a725db1        minimal-www-server   "nginx -g 'daemon off"   42 seconds ago      Up 41 seconds       0.0.0.0:80->80/tcp, 443/tcp   xxxxxxxxxxxx
 ```
-

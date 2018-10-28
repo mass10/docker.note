@@ -7,9 +7,6 @@ use utf8;
 sub _readline {
 
 	my ($line) = @_;
-
-
-
 	if ($line =~ m/\ACONTAINER\ ID/ms) {
 		return undef;
 	}
@@ -22,13 +19,9 @@ sub _readline {
 sub _remove {
 
 	my ($container_id) = @_;
-
-
-
 	if(!length($container_id)) {
 		return;
 	}
-
 	system('sudo', 'docker', 'rm', $container_id);
 }
 
@@ -40,16 +33,11 @@ sub _println {
 sub _erase {
 
 	my $stream;
-
 	open($stream, 'sudo docker ps --all --filter \'status=exited\' |');
-
 	while(my $line = <$stream>) {
-
 		my $container_id = _readline($line);
-
 		_remove($container_id);
 	}
-
 	close($stream)
 }
 
