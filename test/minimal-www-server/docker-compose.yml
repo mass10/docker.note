@@ -1,0 +1,11 @@
+version: "3"
+services:
+  dynamodb:
+    image: minimal-www-server
+    ports:
+      - "80:80"
+    # command: -jar DynamoDBLocal.jar -port 8000 -dbPath /e7b6ace2-7bda-4cbd-9567-10a06b3f3d53
+    # volumes:
+    #   - /tmp:/e7b6ace2-7bda-4cbd-9567-10a06b3f3d53:rw
+
+

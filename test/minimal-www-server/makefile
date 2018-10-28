@@ -4,5 +4,6 @@ main:
 list:
 	sudo docker images
 run:
-	sudo docker run --name xxxxxxxxxxxx -d -p 80:80 minimal-www-server
-
+	# sudo docker run --name xxxxxxxxxxxx -d -p 80:80 minimal-www-server
+	# sudo docker-compose up -d
+	sudo docker-compose up --name abc
