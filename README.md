@@ -12,3 +12,13 @@ insert this line before apt install.
 ```
 ENV DEBIAN_FRONTEND noninteractive
 ```
+
+
+# debconf: delaying package configuration, since apt-utils is not installed (Ubuntu 18 latest, 2018-11-18)
+
+insert this line before apt install.
+
+```
+ENV DEBIAN_FRONTEND noninteractive
+```
+
